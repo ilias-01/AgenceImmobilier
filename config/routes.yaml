@@ -1,3 +1,11 @@
+#home: # nom du routeur
+#  path : / 
+#  controller : App\Controller\HomeController::index  #chemin du controlleur à utiliser :: nom de la fonction à appeller
+
+# biens: 
+#  path : /biens
+#  controller : App\Controller\PropertyController::index  
+
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
