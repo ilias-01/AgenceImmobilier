@@ -35,10 +35,31 @@ class AdminPropertyController extends AbstractController{
         $properties = $this->repository->findAll();
         return $this->render("admin/property/index.html.twig",compact('properties'));
     }
+
+    /**
+     * @Route("/admin/property/new", name="admin.property.new") 
+     */
+    public function new(Request $request)
+    {
+        $property = new Property();
+        $form = $this->createForm(PropertyType::class,$property);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->persist($property);
+            $this->em->flush();
+            return $this->redirectToRoute('admin.property.index');
+        }
+        $this->addFlash('success','Votre bien est créé');
+        return $this->render("admin/property/new.html.twig",[
+            'property'=> $property,
+            'form'    => $form->createView()
+        ]);
+    }
     
     /**
      * 
-     * @Route("/admin/property/{id}" , name="admin.property.edit")    
+     * @Route("/admin/property/{id}" , name="admin.property.edit",methods="GET|POST")    
      */
     public function edit(Property $property,Request $request) : Response
     {
@@ -49,10 +70,28 @@ class AdminPropertyController extends AbstractController{
             $this->em->flush();
             return $this->redirectToRoute('admin.property.index');
         }
+        $this->addFlash('success','Votre bien est modifié');
+
         return $this->render("admin/property/edit.html.twig",[
             'property'=> $property,
             'form'    => $form->createView()
         ]);
+    }
+
+    /**
+     * 
+     * @Route("/admin/property/{id}", name="admin.property.delete", methods="DELETE")
+     */
+
+    public function delete(Property $property,Request $request)
+    {
+        if($this->isCsrfTokenValid('delete'.$property->getId(),$request->get('_token')))//pour la sucurité en suppression
+        {
+            $this->em->remove($property);
+            $this->em->flush();
+        }
+        $this->addFlash('success','Votre bien est supprimé');
+        return $this->redirectToRoute('admin.property.index');
     }
 }
 

@@ -15,9 +15,10 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, reiciendis. Ut fuga tempore accusantium, quidem necessitatibus voluptatem suscipit at ab alias labore tenetur obcaecati, similique odit. Dolorum accusantium laboriosam repellat.</p>
         </div>
     </div>
-    {% for property in properties %}
+    
         <div class="container">
             <div class="row">   
+            {% for property in properties %}
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
@@ -29,7 +30,8 @@
                         </div>
                     </div>
                 </div>
+            {% endfor %}
             </div>
         </div>
-    {% endfor %}
+    
 {% endblock  %}
