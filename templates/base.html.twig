@@ -13,12 +13,19 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse " id="navbarNav">
-                <ul class="navbar-nav ">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link {% if current_menu is defined and current_menu == 'properties' %} active {% endif %} " 
                         href="{{path ('property.index')}}">Acheter</a>
                     </li>
                 </ul>
+                {% if app.user %}
+                    <ul class="navbar-nav  float-right">
+                        <li class="nav-item">
+                            <a href="{{path ('logout')}}" class="nav-link" >Se déconnecter</a>
+                        </li>
+                    </ul>
+                {% endif %}
             </div>
         </nav>
         {% block body %}{% endblock %}
