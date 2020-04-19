@@ -16,6 +16,6 @@
                 <div class="col-md-2">{{ form_row(form.postal_code) }}</div>
                 <div class="col-md-1">{{ form_row(form.sold) }}</div>
             </div>
-            {{ form_widget(form) }}
+            {{ form_rest(form) }}
             <input type="submit" value="{{ button | default(' Enregistrer ') }}" class="btn btn-primary">
 {{ form_end(form) }}
