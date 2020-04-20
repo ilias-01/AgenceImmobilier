@@ -9,8 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
+ * @Vich\Uploadable
  * @UniqueEntity("title")
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
  */
@@ -26,6 +30,18 @@ class Property
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fileName;
+    
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="fileName")
+     */
+    private $imageFile;
 
     /**
      * @Assert\Length(min = 5)
@@ -98,6 +114,11 @@ class Property
      * @ORM\ManyToMany(targetEntity="App\Entity\Option", inversedBy="properties")
      */
     private $options;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     public function __construct()
     {   
@@ -308,4 +329,44 @@ class Property
 
         return $this;
     }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    public function setFileName(?string $fileName): Property
+    {
+        $this->fileName = $fileName;
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+    public function setImageFile(?File $imageFile): Property
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this; 
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+    
+
+    
+    
 }
