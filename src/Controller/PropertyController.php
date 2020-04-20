@@ -40,7 +40,7 @@ class PropertyController extends AbstractController{
     {
         $search = new PropertySearch();
         $form = $this->createForm(PropertySearchType::class,$search);
-        $form->handleRequest($request);
+        $form->handleRequest($request);//le formulaire envoie les données par la méthode spécifié
 
         $properties = $paginator->paginate(
             $this->repository->findByVisibletyQuery($search),
