@@ -5,11 +5,16 @@ use App\Entity\Property;
 use App\Entity\PropertySearch;
 use App\Form\PropertySearchType;
 use App\Repository\PropertyRepository;
+use App\Entity\Contact;
+use App\Form\ContactType;
+use App\Notifications\ContactNotifications;
 use Doctrine\Common\Persistence\ObjectManager;
 use  Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -60,18 +65,45 @@ class PropertyController extends AbstractController{
      * @param Property $property
      * @return Response 
      */
-    public function show(Property $property ,string $slug) :Response
+    public function show(Property $property ,string $slug,Request $request ,ContactNotifications $notification ,MailerInterface $mailer) :Response
     {
+        
         if( $property->getSlug() !== $slug ){
             return $this->redirectToRoute('property.show',[
                 'id' => $property->getId(),
                 'slug' => $property->getSlug()
             ], 301);
         }
-        // dump($property->getSlug());
+        $contact = new Contact();
+        $contact->setProperty($property);
+        $form = $this->createForm(ContactType::class,$contact);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $notification->notify($contact);
+
+            /*********mailer */
+            $email = (new Email())
+            ->from('noreply@agence.fr')
+            ->to('ilyas.mewa@gmail.com')
+            ->subject('Test Symfony Mailer! | Agence'.$contact->getProperty()->getTitle())
+            ->text($contact->getMessage());
+        
+            $mailer->send($email);
+
+            /*********mailer */
+            $this->addFlash('succes','votre message est bien transférer');
+            return $this->redirectToRoute('property.show',[
+                'id' => $property->getId(),
+                'slug' => $property->getSlug()
+            ]);
+
+        }
+
         return $this->render('property/show.html.twig',[
            'property' => $property, 
-           'current_menu' => 'properties'
+           'current_menu' => 'properties',
+           'form' => $form->createView()
         ]);
     }
 }

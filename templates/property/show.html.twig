@@ -15,7 +15,24 @@
                     <h1>{{ property.title }}</h1>
                     <h2>{{ property.rooms }} pièces - {{ property.surface }} m²</h2>
                     <div class="text-primary" style="font-size:4rem; font-weight: bold;">{{ property.formattedPrice }} €</div>
-                    <a href="#" class="btn btn-primary">Contacter l'agence</a>
+                    {# <a href="#" class="btn btn-primary">Contacter l'agence</a> #}
+                    <h3 style="color:#007BFF;font-weight:bold;text-decoration:underline " class="mt-4"> Contacter l'agence :</h3>
+                    <div id="contactForm" >
+                        {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col">{{ form_row(form.firstname) }} </div>
+                                <div class="col">{{ form_row(form.lastname) }} </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">{{ form_row(form.phone) }} </div>
+                                <div class="col">{{ form_row(form.email) }} </div>
+                            </div>
+                            {{ form_rest(form) }} 
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Envoyer</button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
                 </div>
             </div>
         </div>
