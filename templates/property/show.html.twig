@@ -2,7 +2,20 @@
 {% block title property.title %}
 {% block body %}
     <div class="jumbotron">
+    
         <div class="container mt-4">
+            {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+            {% endfor %}
+
+            {% if not form.vars.valid %}
+                <div class="alert alert-danger">
+                    Erreur : un ou plusieurs champs ne sont pas valide 
+                </div>
+            {% endif %}
+
             <div class="row">
                 <div class="col-md-8">
                 {% if property.filename %}

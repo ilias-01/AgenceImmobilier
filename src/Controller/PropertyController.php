@@ -80,19 +80,19 @@ class PropertyController extends AbstractController{
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $notification->notify($contact);
+            $notification->notify($contact); /**pour ne pas allourdir le contrôleur on utlise ContactNotification */
 
             /*********mailer */
-            $email = (new Email())
-            ->from('noreply@agence.fr')
-            ->to('ilyas.mewa@gmail.com')
-            ->subject('Test Symfony Mailer! | Agence'.$contact->getProperty()->getTitle())
-            ->text($contact->getMessage());
-        
-            $mailer->send($email);
-
+             $email = (new Email())
+             ->from('noreply@agence.fr')
+             ->to('khatabbilal12@gmail.com')
+             ->replyTo('ilyas.mewa@gmail.com')
+             ->subject('Test Symfony Mailer! | Agence'.$contact->getProperty()->getTitle())
+             ->html('<p>BNAAAADM MFAAATAT</p>');
+             $mailer->send($email);
             /*********mailer */
-            $this->addFlash('succes','votre message est bien transférer');
+
+            $this->addFlash('success','votre message est bien transférer');
             return $this->redirectToRoute('property.show',[
                 'id' => $property->getId(),
                 'slug' => $property->getSlug()
