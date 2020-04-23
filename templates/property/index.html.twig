@@ -1,30 +1,36 @@
 {% extends 'base.html.twig' %}
 {% block title 'Tous nos biens' %} 
 
+    
+{% block stylesheets %}
+    <link href="{{ asset('build/index-property.css') }}" type="text/css" rel="stylesheet"/>
+{% endblock %}
 
-{% block body %}
-<div class="jumbotron">
-    <div class="container">
+{% block header %}
+    <div class="header container">
         {{ form_start(form) }}
             <div class="form-row align-items-end">
-                <div class="col">
+                <div class="col-md-4">
                     {{ form_row(form.minSurface) }}
                 </div>
-                <div class="col">
+                <div class="col-md-4">
                     {{ form_row(form.maxPrice) }}
                 </div>
-                <div class="col">
+                <div class="col-md-4">
                     {{ form_row(form.options) }}
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-outline-primary">Rechercher</button>
-                    </div>
+                <div class="col text-center">
+                    <button type="submit" class="btn btn-outline-dark" >Rechercher</button>
                 </div>
             </div>
         {{ form_end(form) }}
     </div>
-</div>
+{% endblock %}
+
+{% block body %}
+{# <div class="jumbotron">
+    
+</div> #}
 <div class="container mt-4">
     <div class="row">
         {% for property in properties %}
@@ -36,3 +42,7 @@
     </div>
 </div>
 {% endblock  %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('index-property') }}
+{% endblock %}

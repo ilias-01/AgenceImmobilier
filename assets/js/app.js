@@ -12,11 +12,27 @@ import $ from 'jquery';
 
 
 require('select2');
-$('select').select2();
+
+$('select').select2({
+    placeholder: "Spécifité(s)",
+    
+});
 
 let contactButton = $("#contactButton");
 contactButton.click(e=>{
     e.preventDefault();
     $("#contactForm").slideDown();
     contactButton.slideUp();
+});
+//mise en forme 
+var home = $('.home ');
+var header = $('.home .header');
+let marg = (($(window).height()-header.height())/2);
+console.log(marg);
+header.css('marginTop',marg-140)
+home.height($(window).height());
+$(window).resize(function(){
+    home.height($(window).height());
+    header.css('marginTop',(($(window).height()-header.height())/2)-140)
+
 });

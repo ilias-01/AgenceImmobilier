@@ -1,37 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'My First Page in Symfony' %} 
+{% block title 'My First Page in Symfony' %}
 
 {% block stylesheets %}
-<style> 
-    
-</style>
+    <link href="{{ asset('build/home.css') }}" type="text/css" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}
-    <div class="jumbotron">
-        <div class=" container text-center">
-            <h1>Agence immoblier</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, reiciendis. Ut fuga tempore accusantium, quidem necessitatibus voluptatem suscipit at ab alias labore tenetur obcaecati, similique odit. Dolorum accusantium laboriosam repellat.</p>
-        </div>
-    </div>
-    
-        <div class="container">
-            <div class="row">   
-            {% for property in properties %}
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{{ path ('property.show',{ id:property.id , slug: property.slug }) }}}">{{ property.title }}</a>
-                            </h5>
-                            <p class="card-text">{{ property.city }} ({{ property.postalCode }})</p>
-                            <div class="text-primary" style='font-weight:bold; font-size:rem' >{{ property.formattedPrice }} €</div>
+        <div class="echantillons">
+            <div class="container">
+                <h3 class="text-center ">Notre sélection d'annonces</h3>
+                <div class="row">
+                    {% for property in properties %}
+                        <div class="col-md-6 mb-3">
+                            <div class="annonce">
+                                <div class="overlay"></div>
+                                <div class="info text-center">
+                                        <h4 class=" mb-3">{{ property.title }}</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                {{ property.rooms }} Pièce(s) - {{ property.city }} <br> ({{ property.postalCode }})
+                                            </div>
+                                            <div class="col-md-6"> <span class=" px-3">{{ property.bedrooms }} Chambre(s) <span> <span> {{ property.surface }}m² <span></div>
+                                        </div>
+                                        <p>{{ property.formattedPrice }} €</p>
+                                </div>
+                                <a href="{{ path ('property.show',{ id:property.id , slug: property.slug }) }}}">
+                                    {% if property.filename %}
+                                        <img src="{{ vich_uploader_asset(property, 'imageFile')  }}"   alt="display error">
+                                    {% else %}
+                                        <img src="{{ '/images/properties/defaultImage.jpg' | imagine_filter('thumb') }}"   alt="display error">
+                                    {% endif %}
+                                </a>
+                            </div>
                         </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <h3 class="text-center ">Bienvenue chez <span>Home Conseil Immobilier</span></h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ '/images/properties/defaultImage.jpg' | imagine_filter('thumb') }}" alt="display error">
+                    </div>
+                    <div class="col-md-8 pl-5">
+                        <h5>— Spécialisés dans l'immobilier depuis 25 ans —</h5>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, beatae debitis officia et quaerat eos repellat necessitatibus </p>
+                        <p>71 avenue du Général Guynemer<br>75014 Caen (Tramway T3)<br>Tel : 01 42 18 01 01</p>
+                        <button class="btn btn-primary">Nous Contacter</button>
                     </div>
                 </div>
-            {% endfor %}
             </div>
         </div>
-    
+        <div class="estimation ">
+            <div class="over"></div>
+            <div class="container ">
+                <div class="text-center" id="centre" style="padding-top: 150px;position: absolute;">
+                    <h2>Estimation gratuite</h2>
+                    <p>Remplissez le formulaire en ligne dès maintenant et obtenez l’estimation de votre bien en quelques clics.</p>
+                    <button class="btn btn-primary">En savoir plus</button>
+                </div>
+            </div>
+        </div>
 {% endblock  %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('home') }}
+{% endblock %}

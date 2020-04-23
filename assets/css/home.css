@@ -1,0 +1,75 @@
+body{height:  5000px;}
+/**START ESTIMATION **/
+.echantillons
+{
+    padding-bottom: 50px;
+    
+}
+.echantillons .annonce{
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+.echantillons h3{
+    font-weight: 700;
+    font-size: 2.8rem;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.echantillons .annonce .overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(84, 85, 85, 0.822);
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+}
+.echantillons .annonce .overlay:hover{ opacity: 0; cursor: pointer;}
+.echantillons .annonce  .info{
+    position: absolute;
+    color: #FFF;
+}
+.echantillons .annonce  .info h4{text-transform: capitalize; font-weight: bold;}
+.echantillons .annonce  .info span
+{
+    background-color: #888;
+    border-radius: 3px;
+    padding: 0 4px;
+    font-size: 11px;
+}
+.echantillons .annonce  .info p
+{
+    font-size: 22px;
+    font-weight: 600;
+}
+.echantillons .annonce img { width: 100%; height: 100%; }
+/**END ESTIMATION **/
+
+/**START ESTIMATION **/
+.estimation{
+    height: 400px;
+    background-image: url('../backgrounds/back2.jpg');
+    background-size: cover;
+    color: #FFF;
+    position: relative;
+
+}
+.estimation .over
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.61);
+}
+.estimation h2
+{   
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 2.8rem;
+}
+.estimation p{font-size: 140%;}
+/**END ESTIMATION **/

@@ -2,9 +2,9 @@ liip_imagine:
     driver: "gd"
     filter_sets:
         thumb:
-            quality: 75
+            quality: 100
             filters : 
-                thumbnail: { size: [360,230] , mode: outbound  }
+                thumbnail: { size: [540,230] , mode: outbound  }
         medium:
             quality: 75
             filters : 
