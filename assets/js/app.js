@@ -28,7 +28,7 @@ contactButton.click(e=>{
 var home = $('.home ');
 var header = $('.home .header');
 let marg = (($(window).height()-header.height())/2);
-console.log(marg);
+// console.log(marg);
 header.css('marginTop',marg-140)
 home.height($(window).height());
 $(window).resize(function(){

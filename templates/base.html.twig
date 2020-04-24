@@ -13,7 +13,7 @@
     <body>
         <div class="home">
             <div class="overlay">
-                <nav class="navbar navbar-expand-lg navbar-dark  p-5 ">
+                <nav class="navbar navbar-expand-lg navbar-dark  p-5 mx-3 ">
                     <a class="navbar-brand" href="{{ path ('home') }}">Home Immobilier</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
                     <div class="collapse navbar-collapse pr-5 " id="navbarNav">
                         <ul class="navbar-nav ml-auto" >
                                 <li class="nav-item px-4">
-                                    <a class="nav-link {% if current_menu is defined and current_menu == 'properties' %} active {% endif %} " 
+                                    <a class="nav-link {% if(current_menu is not defined) or (current_menu is defined and current_menu == 'properties')  %} active {% endif %} " 
                                     href="{{path ('property.index')}}">Acheter</a>
                                 </li>
                                 <li class="nav-item px-4">
@@ -51,13 +51,56 @@
                 </nav>
                 {% block header %}
                 <div class="header container text-center">
-                    <h1>Agence immoblier</h1>
+                    <h1 class="mb-4"> Agence <span style="color:#E4AE42">HOME Immoblier</span> </h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, reiciendis. Ut fuga tempore accusantium, quidem necessitatibus voluptatem suscipit at ab alias labore tenetur obcaecati, similique odit. Dolorum accusantium laboriosam repellat.</p>
                 </div>
                 {% endblock %}
             </div>
         </div>
         {% block body %}{% endblock %}
+        <div class="footer py-2">
+            <div class="container">
+                <div class="row my-5">
+                    <div class="col-md-3">
+                        <h4 style="color:#555">HOME Conseil Immobilier</h4>
+                        <p class="text-muted">71 avenue du Général Leclerc<br>75014 Paris<br>Afficher le téléphone</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>PLUS D'INFORMATIONS</h5>
+                        <hr class="my-2">
+                        <ul>
+                            <li>Immobilier vente</li>
+                            <li>Immobilier location</li>
+                            <li>Immobilier vendu</li>
+                            <li>Honoraires - Mentions légales</li>
+                            <li>Politique de confidentialité</li>
+                            <li>Contactez-nous</li>   
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>NAVIGATION</h5>
+                        <hr class="my-2">
+                        <ul>
+                            <li>Nos valeurs</li>
+                            <li>Notre histoire</li>
+                            <li>Notre métier</li>
+                            <li>Nous contacter</li>
+                            <li>Liens partenaires</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>A PROPOS</h5>
+                        <hr class="my-2">
+                        <ul>
+                            <p> Retrouvez toutes les annonces immobilières de Caen 16ème 550002.<br>Notre agence immobilière à Caen 16 (550002)  vous propose les services suivants :<br>Vente - Location - Gestion - Estimation gratuite
+                            </p> 
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <p class="text-center text-muted">Copyright reseved &copy; 2020</p>
+            </div>
+        </div>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

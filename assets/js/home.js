@@ -9,9 +9,11 @@ overlay.css({
     "top": height+"px",
     "right": width+"px"
 });
-// let mrgTop = (($("#centre").parent().height())-($("#centre").height()))/2;
-// console.log($("#centre"));
-// $("#centre").css('marginTop',mrgTop);
+let pH=$("#centre").parent().parent().height();
+let h = $("#centre").height();
+ let padTop = pH - h;
+ console.log("padding top "+padTop/2);
+ $("#centre").css('paddingTop',padTop/2);
 
 $(window).resize(function(){
     overlay.css({
