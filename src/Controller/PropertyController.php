@@ -6,8 +6,10 @@ use App\Entity\PropertySearch;
 use App\Form\PropertySearchType;
 use App\Repository\PropertyRepository;
 use App\Entity\Contact;
+use App\Entity\PropertyLike;
 use App\Form\ContactType;
 use App\Notifications\ContactNotifications;
+use App\Repository\PropertyLikeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use  Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -105,6 +107,48 @@ class PropertyController extends AbstractController{
            'current_menu' => 'properties',
            'form' => $form->createView()
         ]);
+    }
+        
+    /**
+     * like
+     *@Route("/biens/{id}/like",name="property.like")
+     * @return Response
+     */
+    public function like(Property $property,ObjectManager $manager,PropertyLikeRepository $likeRepository): Response
+    {   
+        $user=$this->getUser();
+
+        if(!$user) return $this->json([
+            'code' => 403,
+            'message' => 'Unauthorized'
+            ]);
+        
+        if ($property->isLikedByUser($user)){
+            $like = $likeRepository->findOneBy([
+                'property' => $property,
+                'user' => $user,
+            ]);
+            $manager->remove($like);
+            $manager->flush();
+            return $this->json([
+            'code'=>200,
+            'message'=>'unlike',
+            'likes' => $likeRepository->count(['property'=>$property])
+            ],
+            200);
+        }
+
+        $like = new PropertyLike();
+        $like->setProperty($property)
+            ->setUser($user);
+        $manager->persist($like);
+        $manager->flush();
+        return $this->json([
+        'code'=>200,
+        'message'=>'like',
+        'likes' => $likeRepository->count(['property'=>$property])
+        ],
+        200);
     }
 }
 

@@ -14,6 +14,14 @@
             <div class="text-primary" style="font-weight: bold; font-size: 2rem;">
                 {{ property.formattedPrice }} €
             </div>
+            <a  href="{{ path('property.like',{id: property.id}) }}" class="js-like float-right btn-link " >
+                {# {% if app.user and property.isLikedByUser %}
+                    
+                {% endif %} #}
+                <i class="fas fa-heart"></i>
+                <span  class="js-numLikes">{{ property.likes | length }}</span> 
+                <span  class="js-statLike">{% if property.isLikedByUser(app.user) %}Je n'aime pas{% else %}J'aime{% endif %}</span>
+            </a>
         </div>
     </div>
 </div>

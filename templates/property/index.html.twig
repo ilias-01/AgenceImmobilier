@@ -45,4 +45,28 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
     {{ encore_entry_script_tags('index-property') }}
-{% endblock %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        
+        function onClickBtnLike(event){
+            event.preventDefault();
+
+            const url = this.href;
+            const spaceCount = this.querySelector('span.js-numLikes');
+            const liketext = this.querySelector('span.js-statLike');
+            axios.get(url).then( function(response){
+                spaceCount.textContent = response.data.likes;
+                if(response.data.message === 'like'){
+                    liketext.textContent = "Je n'aime pas";
+                }else{
+                    liketext.textContent = "J'aime";
+                }
+            });
+        }
+        document.querySelectorAll('a.js-like').forEach( 
+            function (link){
+                link.addEventListener('click',onClickBtnLike);
+            }
+        );
+    </script>
+{% endblock %}  
