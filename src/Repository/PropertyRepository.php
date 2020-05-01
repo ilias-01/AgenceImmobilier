@@ -60,7 +60,15 @@ class PropertyRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    
+    public function findById($id_property) :array
+    {
+        return $this->findVisibleQuery()
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $id_property)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     private function findVisibleQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('p')

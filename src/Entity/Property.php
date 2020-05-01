@@ -421,5 +421,8 @@ class Property
 
     }
     
-    
+    public function __toString()
+    {
+        return $this->title;
+    }
 }

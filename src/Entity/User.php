@@ -109,7 +109,11 @@ class User implements UserInterface,\Serializable
         
     }
     
-    
+    public function __toString()
+    {
+        return $this->username;
+    }
+
     public function serialize()
     {
         return serialize([

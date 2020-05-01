@@ -121,7 +121,7 @@ class PropertyController extends AbstractController{
         if(!$user) return $this->json([
             'code' => 403,
             'message' => 'Unauthorized'
-            ]);
+        ],403);
         
         if ($property->isLikedByUser($user)){
             $like = $likeRepository->findOneBy([

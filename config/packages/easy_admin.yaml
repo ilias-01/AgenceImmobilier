@@ -1,0 +1,55 @@
+easy_admin:
+    design:
+        menu:
+            - label: "Les biens "
+              children:
+                    - { entity: 'Property', label: 'Liste des biens' , icon: 'list-ul' }
+                    - { entity: 'Option', label: 'Spécifités des biens', icon: 'tags' }
+                    - { entity: 'PropertyLike', label: 'Biens aimés', icon: 'heart' }
+                    - { entity: 'Property', label: 'Nouveau bien', icon: 'plus', params: { action: 'new' } }
+            - label: "Paramètres"
+            - { entity: 'User', label: 'Utilisateurs', icon: 'user-cog' }
+            
+        brand_color: '#1ABC9C'
+    user:
+        display_name: false
+        display_avatar: true
+
+    site_name: '<span style="color:#E4AE42;">HOME Immobiler</span> Administration'
+    
+    entities:
+      Property:
+        class: App\Entity\Property
+        list:
+              batch_actions: ['delete']
+              max_results: 20
+              title: "Gestion des biens"
+              fields: 
+                - 'id' 
+                - 'Title'
+                - 'Surface'
+                - 'Rooms'
+                - { property: 'Bedrooms', label: 'Pièces' }
+                - 'Floor'
+                - { property: 'created_at', label: 'Création' }
+              filters: ['surface','bedrooms']
+        form:
+          fields:
+            - {type: 'group', icon: 'pencil', label: 'Information basique'}
+            - 'Title'
+            - { property: 'Price'}
+            - 'Surface'
+            - {type: 'group', icon: 'pencil', label: 'info Complémentaire',css_class: 'col-lg-6'}
+            - { property: 'Rooms', label: 'Pièces' }
+            - { property: 'Bedrooms', label: 'Chambre' }
+            - { property: 'Floor', label: 'Etage' }
+            - {type: 'group', icon: 'pencil', label: "Information d'annonce",css_class: 'col-lg-6'}
+            - 'Description'
+        
+      
+      PropertyLike:
+        class: App\Entity\PropertyLike 
+      Option:
+        class: App\Entity\Option
+      User:
+        class: App\Entity\User 

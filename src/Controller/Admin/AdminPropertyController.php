@@ -28,7 +28,7 @@ class AdminPropertyController extends AbstractController{
     
     /**
      * 
-     * @Route("/admin" , name="admin.property.index")    
+     * @Route("/adm" , name="admin.property.index")    
      */
     public function index() : Response
     {
@@ -37,7 +37,7 @@ class AdminPropertyController extends AbstractController{
     }
 
     /**
-     * @Route("/admin/property/new", name="admin.property.new") 
+     * @Route("/adm/property/new", name="admin.property.new") 
      */
     public function new(Request $request)
     {
@@ -59,7 +59,7 @@ class AdminPropertyController extends AbstractController{
     
     /**
      * 
-     * @Route("/admin/property/{id}" , name="admin.property.edit",methods="GET|POST")    
+     * @Route("/adm/property/{id}" , name="admin.property.edit",methods="GET|POST")    
      */
     public function edit(Property $property,Request $request) : Response
     {
@@ -80,7 +80,7 @@ class AdminPropertyController extends AbstractController{
 
     /**
      * 
-     * @Route("/admin/property/{id}", name="admin.property.delete", methods="DELETE")
+     * @Route("/adm/property/{id}", name="admin.property.delete", methods="DELETE")
      */
 
     public function delete(Property $property,Request $request)

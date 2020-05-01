@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Repository\PropertyLikeRepository;
+use App\Repository\PropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PropertyLike
 {
+    private $propertyLikeRep;
+    private $propertyRep;
+
+    public function __construct(PropertyLikeRepository $propertyLikeRep,PropertyRepository $propertyRep)
+    {
+        $this->propertyLikeRep = $propertyLikeRep;
+        $this->propertyRep = $propertyRep;
+    }
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -54,4 +64,20 @@ class PropertyLike
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->user->getUsername();
+    }
+    // public function __toString()
+    // {
+    //     $property_ids = $this->propertyLikeRep->findByUser($this->id);
+    //     $properties=[];
+        
+    //     foreach($property_ids as $id)
+    //     {
+    //         $properties[]=$this->propertyRep->findById($id);
+    //     }
+
+    //     return $properties;
+    // }
 }

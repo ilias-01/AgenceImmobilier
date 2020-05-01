@@ -54,12 +54,18 @@
             const url = this.href;
             const spaceCount = this.querySelector('span.js-numLikes');
             const liketext = this.querySelector('span.js-statLike');
-            axios.get(url).then( function(response){
+            axios.get(url).then(function(response){
                 spaceCount.textContent = response.data.likes;
                 if(response.data.message === 'like'){
                     liketext.textContent = "Je n'aime pas";
                 }else{
                     liketext.textContent = "J'aime";
+                }
+            }).catch(function(error){
+                if(error.response.status === 403){
+                    window.alert("Connectez vous, pour qu vous puissiez liker vos biens préférés");
+                }else{
+                    window.alert("une erreur s'est produit,veuillez réessayer ultériérement");
                 }
             });
         }
