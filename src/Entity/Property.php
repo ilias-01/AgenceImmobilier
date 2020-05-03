@@ -125,11 +125,17 @@ class Property
      */
     private $likes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachment", mappedBy="property",cascade={"persist"})
+     */
+    private $attachments;
+
     public function __construct()
     {   
         $this->created_at= new DateTime();
         $this->options = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -424,5 +430,36 @@ class Property
     public function __toString()
     {
         return $this->title;
+    }
+
+    /**
+     * @return Collection|Attachment[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Attachment $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Attachment $attachment): self
+    {
+        if ($this->attachments->contains($attachment)) {
+            $this->attachments->removeElement($attachment);
+            // set the owning side to null (unless already changed)
+            if ($attachment->getProperty() === $this) {
+                $attachment->setProperty(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -26,8 +26,8 @@
                                         <p>{{ property.formattedPrice }} €</p>
                                 </div>
                                 <a href="{{ path ('property.show',{ id:property.id , slug: property.slug }) }}}">
-                                    {% if property.filename %}
-                                        <img src="{{ vich_uploader_asset(property, 'imageFile')  }}"   alt="display error">
+                                    {% if property.attachments.first != false %}
+                                        <img src="{{ vich_uploader_asset(property.attachments.first, 'imageFile')  }}"   alt="display error">
                                     {% else %}
                                         <img src="{{ '/images/properties/defaultImage.jpg' | imagine_filter('thumb') }}"   alt="display error">
                                     {% endif %}

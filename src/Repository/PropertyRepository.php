@@ -6,6 +6,7 @@ use App\Entity\Property;
 use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -54,10 +55,10 @@ class PropertyRepository extends ServiceEntityRepository
      */
     public function findLatest() :array
     {
-        return $this->findVisibleQuery()
-            ->setMaxResults(4)
-            ->getQuery()
-            ->getResult()
+        $qb = $this->findVisibleQuery();
+        return $qb->setMaxResults(4)
+                ->getQuery()
+                ->getResult()
         ;
     }
     public function findById($id_property) :array

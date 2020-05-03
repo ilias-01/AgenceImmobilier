@@ -1,7 +1,7 @@
 easy_admin:
     design:
         menu:
-            - label: "Les biens "
+            - label: "Annonces"
               children:
                     - { entity: 'Property', label: 'Liste des biens' , icon: 'list-ul' }
                     - { entity: 'Option', label: 'Spécifités des biens', icon: 'tags' }
@@ -21,6 +21,9 @@ easy_admin:
       Property:
         class: App\Entity\Property
         list:
+              filters: ['title','surface','bedrooms']
+              collapse_actions: true
+              actions: ['show', 'edit', 'delete']
               batch_actions: ['delete']
               max_results: 20
               title: "Gestion des biens"
@@ -31,25 +34,37 @@ easy_admin:
                 - 'Rooms'
                 - { property: 'Bedrooms', label: 'Pièces' }
                 - 'Floor'
-                - { property: 'created_at', label: 'Création' }
-              filters: ['surface','bedrooms']
+                - { property: 'created_at', label: 'Créer le ' }
+        show:
+          fields: 
+            - 'title'
+            - 'surface'
+            - 'rooms'
+            - 'created_at'
+            - {  property: 'attachments', template: '/pages/propertyImages.html.twig' }
         form:
           fields:
-            - {type: 'group', icon: 'pencil', label: 'Information basique'}
-            - 'Title'
-            - { property: 'Price'}
-            - 'Surface'
+            - {type: 'group', icon: 'pencil', label: 'Information basique',css_class: 'col-lg-6'}
+            - { property: 'title', label: 'Titre'}
+            - { property: 'price', label: 'Prix',css_class: 'col-2'}
+            - 'surface'
             - {type: 'group', icon: 'pencil', label: 'info Complémentaire',css_class: 'col-lg-6'}
-            - { property: 'Rooms', label: 'Pièces' }
-            - { property: 'Bedrooms', label: 'Chambre' }
-            - { property: 'Floor', label: 'Etage' }
+            - { property: 'rooms', label: 'Pièces' }
+            - { property: 'bedrooms', label: 'Chambre' }
+            - { property: 'floor', label: 'Etage' }
             - {type: 'group', icon: 'pencil', label: "Information d'annonce",css_class: 'col-lg-6'}
-            - 'Description'
-        
+            - 'description'
+            - 'options'
+            # - { property: 'imageFile',label: "Téléchargé une image", type: 'vich_image' }
+            - {type: 'group', icon: 'paperclip', label: "Pièces jointes",css_class: 'col-lg-6'}
+            - { property: 'attachments', label: 'Images ',type: 'collection', type_options: {entry_type: 'App\Form\AttachmentType', by_reference: false} }
       
       PropertyLike:
         class: App\Entity\PropertyLike 
       Option:
         class: App\Entity\Option
+        form:
+          fields:
+            - 'name'
       User:
         class: App\Entity\User 
